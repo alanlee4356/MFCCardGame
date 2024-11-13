@@ -50,6 +50,7 @@ void CStartDlg::OnClickedButtonEight()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	m_bHard = true;
+	m_bEasy = false;
 }
 
 
@@ -57,6 +58,7 @@ void CStartDlg::OnClickedButtonSix()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	m_bEasy = true;
+	m_bHard = false;
 }
 
 void CStartDlg::OnClickedButtonAlone()
