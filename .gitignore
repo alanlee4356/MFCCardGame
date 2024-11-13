@@ -9,3 +9,5 @@
 *.vsidx
 
 /CardMatching/CardMatching/.vs/CardMatching/v17
+
+/CardMatching/CardMatching/CardMatching/x64/Debug
