@@ -113,10 +113,14 @@ BOOL CCoupleDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
-
+	// 플레이어 폰트
 	m_tFont1.CreateFont(30, 10, 0, 0, 1000, 1, 0, 0, 0, OUT_DEFAULT_PRECIS, 0, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, _T("굴림"));
 	GetDlgItem(IDC_STATIC_PLAYER1)->SetFont(&m_tFont1);
 	GetDlgItem(IDC_STATIC_PLAYER2)->SetFont(&m_tFont1);
+
+	m_tFont2.CreateFont(20, 10, 0, 0, 1000, 1, 0, 0, 0, OUT_DEFAULT_PRECIS, 0, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, _T("굴림"));
+	GetDlgItem(IDC_EDIT_POINT1)->SetFont(&m_tFont2);
+	GetDlgItem(IDC_EDIT_POINT2)->SetFont(&m_tFont2);
 
 
 	CString str;
@@ -231,10 +235,11 @@ void CCoupleDlg::OnLButtonDown(UINT nFlags, CPoint point)
 
 	if (m_front_back) return; //m_front_back 이 1이면 마우스 클릭을 못함
 
-	if (point.x - 300 < m_length * 6 && point.y - 50 < m_height * 6)
+	if ( point.x > 300 && point.x < 300 + (m_length * 6) && point.x > 50 && point.y < 50 + (m_height * 6))
 	{
 		int x = (point.x - 300) / m_length;
 		int y = (point.y - 50) / m_height;
+
 		int pos = y * 6 + x;
 		int index = m_game_table[pos] + 1;
 
