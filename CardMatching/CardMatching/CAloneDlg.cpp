@@ -65,22 +65,23 @@ BOOL CAloneDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// 이 대화 상자의 아이콘을 설정합니다.  응용 프로그램의 주 창이 대화 상자가 아닐 경우에는
-	//  프레임워크가 이 작업을 자동으로 수행합니다.
-	SetIcon(m_hIcon, TRUE);			// 큰 아이콘을 설정합니다.
-	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
+	// 이 대화 상자의 아이콘을 설정합니다.
+	SetIcon(m_hIcon, TRUE);          // 큰 아이콘을 설정합니다.
+	SetIcon(m_hIcon, FALSE);         // 작은 아이콘을 설정합니다.
 
-	// TODO: 여기에 추가 초기화 작업을 추가합니다.
+	// 카드 이미지 로드
 	CString str;
-
 	for (int i = 0; i < 19; i++)
 	{
 		str.Format(L"Image\\%03d.bmp", i);
 		m_card_list[i].Load(str);
 	}
 
-	SetTimer(1, 3000, NULL);
+	SetTimer(1, 3000, NULL); // 카드 뒷면으로 돌아가는 타이머 설정
+	SetTimer(2, 1000, NULL); // 1초마다 업데이트 타이머 (IDC_STATIC_SECOND 갱신)
 
+	m_nTimeRemaining = 300; // 5분(300초)
+	SetDlgItemInt(IDC_STATIC_TIME, m_nTimeRemaining);
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
 
@@ -138,16 +139,39 @@ HCURSOR CAloneDlg::OnQueryDragIcon()
 
 void CAloneDlg::OnTimer(UINT_PTR nIDEvent)
 {
-	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 	if (nIDEvent == 1)
 	{
 		KillTimer(1);
 		m_front_back = 0;
 		Invalidate();
 	}
-	else CDialogEx::OnTimer(nIDEvent);
+	else if (nIDEvent == 2)
+	{
+		if (m_nTimeRemaining > 0)
+		{
+			// 남은 시간 갱신
+			m_nTimeRemaining--;
+			SetDlgItemInt(IDC_STATIC_TIME, m_nTimeRemaining);
 
-	CDialogEx::OnTimer(nIDEvent);
+			// 시간이 다 됐을 경우 처리
+			if (m_nTimeRemaining == 0)
+			{
+				KillTimer(2); // 타이머 종료
+				AfxMessageBox(L"시간 초과로 게임이 종료됩니다.");
+
+				// 결과 다이얼로그 호출
+				CResultDlg resultDlg;
+				resultDlg.DoModal();
+
+				// 다이얼로그 종료
+				EndDialog(IDOK);
+			}
+		}
+	}
+	else
+	{
+		CDialogEx::OnTimer(nIDEvent);
+	}
 }
 
 
@@ -177,20 +201,23 @@ void CAloneDlg::OnLButtonDown(UINT nFlags, CPoint point)
 				if (m_game_table[m_card_choice] == m_game_table[pos])
 					//첫 번째 테이블 값과 두 번째 테이블 값이 같으면
 				{
+					m_nScore++;
+					SetDlgItemInt(IDC_STATIC_SCORE, m_nScore);
 					m_game_table[m_card_choice] = -1;
 					m_game_table[pos] = -1;
-
-					// Check if the game is complete
-					if (IsGameComplete()) {
-						CResultDlg resultDlg;
-						resultDlg.DoModal();
-					}
 				}
 				m_card_choice = -1; //다시 첫 번째 카드를 선택하는 상황
 
 				m_front_back = 1; //WM_TIMER 메세지가 호출되기 전까지 아무것도 못 누르게
 
 				SetTimer(1, 1000, NULL);
+
+				// 게임을 끝내거나 시간이 초과된 경우
+				if (IsGameComplete()) {
+					m_score = m_nScore + m_nTimeRemaining;
+					CResultDlg resultDlg;
+					resultDlg.DoModal();
+				}
 			}
 		}
 

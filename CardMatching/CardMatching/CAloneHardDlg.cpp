@@ -80,6 +80,9 @@ BOOL CAloneHardDlg::OnInitDialog()
 	}
 
 	SetTimer(1, 3000, NULL);
+	SetTimer(2, 1000, NULL); // 5분 타이머 설정 (5분 = 300,000ms)
+	m_nTimeRemaining = 600;
+	SetDlgItemInt(IDC_STATIC_TIME, m_nTimeRemaining);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -138,16 +141,39 @@ HCURSOR CAloneHardDlg::OnQueryDragIcon()
 
 void CAloneHardDlg::OnTimer(UINT_PTR nIDEvent)
 {
-	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 	if (nIDEvent == 1)
 	{
 		KillTimer(1);
 		m_front_back = 0;
 		Invalidate();
 	}
-	else CDialogEx::OnTimer(nIDEvent);
+	else if (nIDEvent == 2)
+	{
+		if (m_nTimeRemaining > 0)
+		{
+			// 남은 시간 갱신
+			m_nTimeRemaining--;
+			SetDlgItemInt(IDC_STATIC_TIME, m_nTimeRemaining);
 
-	CDialogEx::OnTimer(nIDEvent);
+			// 시간이 다 됐을 경우 처리
+			if (m_nTimeRemaining == 0)
+			{
+				KillTimer(2); // 타이머 종료
+				AfxMessageBox(L"시간 초과로 게임이 종료됩니다.");
+
+				// 결과 다이얼로그 호출
+				CResultDlg resultDlg;
+				resultDlg.DoModal();
+
+				// 다이얼로그 종료
+				EndDialog(IDOK);
+			}
+		}
+	}
+	else
+	{
+		CDialogEx::OnTimer(nIDEvent);
+	}
 }
 
 
@@ -177,11 +203,14 @@ void CAloneHardDlg::OnLButtonDown(UINT nFlags, CPoint point)
 				if (m_game_table[m_card_choice] == m_game_table[pos])
 					//첫 번째 테이블 값과 두 번째 테이블 값이 같으면
 				{
+					m_nScore++;
+					SetDlgItemInt(IDC_STATIC_SCORE, m_nScore);
 					m_game_table[m_card_choice] = -1;
 					m_game_table[pos] = -1;
 
 					// Check if the game is complete
 					if (IsGameComplete()) {
+						m_score = m_nScore + m_nTimeRemaining;
 						CResultDlg resultDlg;
 						resultDlg.DoModal();
 					}
