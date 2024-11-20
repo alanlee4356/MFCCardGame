@@ -40,6 +40,4 @@ public:
 	afx_msg void OnBnClickedButtonHint();
 	afx_msg void OnClose();
 	afx_msg bool IsGameComplete();
-	int m_nScore;
-	int m_nTimeRemaining; // 남은 시간(초)
 };

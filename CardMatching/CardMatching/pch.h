@@ -10,6 +10,7 @@
 // 여기에 미리 컴파일하려는 헤더 추가
 #include "framework.h"
 
-static int m_score;
+static int m_nScore;
+static int m_nTime;
 
 #endif //PCH_H
