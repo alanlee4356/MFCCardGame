@@ -30,8 +30,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnDestroy();
-	afx_msg void OnEnChangeEditPoint1();
-	afx_msg void OnEnChangeEditPoint2();
 
 	const char m_PlusPoint = 1; //맞출 시 추가되는 점수
 	int m_nPoint1; //플레이어별 점수 합계
@@ -39,11 +37,9 @@ public:
 	bool m_bTurn = true; //player1 start
 	const char m_length = 60; //카드 크기
 	const char m_height = 80;
-	CString m_strTimer; //타이머 출력 문자열
+	CString m_strTimer;
 	bool m_bTimerRun = false;
 	int m_nSecond;
-	int m_nMSec;
-
 
 
 	CImage m_card_list[19];
@@ -55,6 +51,7 @@ public:
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnClickedButtonHint1();
 	afx_msg void OnClickedButtonHint2();
+	afx_msg void OnClickedButtonTimer();
 	afx_msg HCURSOR OnQueryDragIcon();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };

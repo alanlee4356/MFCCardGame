@@ -17,9 +17,8 @@ CCoupleDlg::CCoupleDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_COUPLE_DIALOG, pParent)
 	, m_nPoint1(0)
 	, m_nPoint2(0)
-	, m_strTimer(_T("10. 00"))
+	, m_strTimer(_T("10"))
 	, m_nSecond(10)
-	, m_nMSec(100)
 {
 	m_hIcon = AfxGetApp()->LoadIconW(IDR_MAINFRAME);
 
@@ -51,14 +50,12 @@ void CCoupleDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_EDIT_POINT1, m_nPoint1);
 	DDX_Text(pDX, IDC_EDIT_POINT2, m_nPoint2);
-	DDX_Text(pDX, IDC_EDIT_TIMER, m_strTimer);
+	DDX_Text(pDX, IDC_STATIC_TIME, m_nSecond);
 }
 
 
 BEGIN_MESSAGE_MAP(CCoupleDlg, CDialogEx)
 	ON_WM_DESTROY()
-	ON_EN_CHANGE(IDC_EDIT_POINT1, &CCoupleDlg::OnEnChangeEditPoint1)
-	ON_EN_CHANGE(IDC_EDIT_POINT2, &CCoupleDlg::OnEnChangeEditPoint2)
 	ON_WM_PAINT()
 	ON_WM_TIMER()
 	ON_WM_LBUTTONDOWN()
@@ -66,6 +63,7 @@ BEGIN_MESSAGE_MAP(CCoupleDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_HINT2, &CCoupleDlg::OnClickedButtonHint2)
 	ON_WM_QUERYDRAGICON()
 	ON_WM_CTLCOLOR()
+	ON_BN_CLICKED(IDC_BUTTON_TIMER, &CCoupleDlg::OnClickedButtonTimer)
 END_MESSAGE_MAP()
 
 
@@ -78,28 +76,6 @@ void CCoupleDlg::OnDestroy()
 
 	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
 	//m_cardDlg->DestroyWindow();
-}
-
-
-void CCoupleDlg::OnEnChangeEditPoint1()
-{
-	// TODO:  RICHEDIT 컨트롤인 경우, 이 컨트롤은
-	// CDialogEx::OnInitDialog() 함수를 재지정 
-	//하고 마스크에 OR 연산하여 설정된 ENM_CHANGE 플래그를 지정하여 CRichEditCtrl().SetEventMask()를 호출하지 않으면
-	// 이 알림 메시지를 보내지 않습니다.
-
-	// TODO:  여기에 컨트롤 알림 처리기 코드를 추가합니다.
-}
-
-
-void CCoupleDlg::OnEnChangeEditPoint2()
-{
-	// TODO:  RICHEDIT 컨트롤인 경우, 이 컨트롤은
-	// CDialogEx::OnInitDialog() 함수를 재지정 
-	//하고 마스크에 OR 연산하여 설정된 ENM_CHANGE 플래그를 지정하여 CRichEditCtrl().SetEventMask()를 호출하지 않으면
-	// 이 알림 메시지를 보내지 않습니다.
-
-	// TODO:  여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
 
 
@@ -122,6 +98,10 @@ BOOL CCoupleDlg::OnInitDialog()
 	GetDlgItem(IDC_EDIT_POINT1)->SetFont(&m_tFont2);
 	GetDlgItem(IDC_EDIT_POINT2)->SetFont(&m_tFont2);
 
+	m_tFont3.CreateFont(20, 10, 0, 0, 1000, 0, 0, 0, 0, OUT_DEFAULT_PRECIS, 0, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, _T("굴림"));
+	GetDlgItem(IDC_STATIC_TIME)->SetFont(&m_tFont3);
+
+
 
 	CString str;
 
@@ -132,10 +112,6 @@ BOOL CCoupleDlg::OnInitDialog()
 	}
 
 	SetTimer(1, 3000, NULL);
-
-	//if (!m_bTimerRun) m_bTimerRun = true;
-
-	//SetTimer(2, 10000, NULL); //Timer가 안 돌아가서 주석처리한 코드입니다.
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
@@ -163,7 +139,7 @@ void CCoupleDlg::OnPaint()
 		// 아이콘을 그립니다.
 		dc.DrawIcon(x, y, m_hIcon);
 	}
-	else 
+	else
 	{
 		CPaintDC dc(this);
 		int index;
@@ -188,34 +164,6 @@ void CCoupleDlg::OnPaint()
 void CCoupleDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
-	//if (m_bTimerRun)
-	//{
-	//	m_nMSec--;
-	//	m_strTimer.Format(_T("%02d. %02d"), m_nSecond, m_nMSec);
-
-	//	if (m_nSecond == 0)
-	//	{
-	//		!m_bTurn;
-	//		m_nSecond = 9;
-	//		UpdateData(FALSE);
-	//	}
-
-	//	if (m_nMSec == 0)
-	//	{
-	//		m_nSecond -= 1;
-	//		m_nMSec = 100;
-	//	}
-
-	//	if (nIDEvent == 2) //하단에 출력되는 타이머 ID = 2
-	//	{
-	//		KillTimer(2);
-	//		m_nMSec = 100;
-	//		m_nSecond = 9;
-	//	}
-
-	//	Invalidate();
-
-	//}
 
 	if (nIDEvent == 1)
 	{
@@ -223,7 +171,23 @@ void CCoupleDlg::OnTimer(UINT_PTR nIDEvent)
 		m_front_back = 0;
 		Invalidate();
 	}
-	else CDialogEx::OnTimer(nIDEvent);
+	else if (nIDEvent == 2)
+	{
+		m_nSecond -= 1;
+		UpdateData(FALSE);
+
+		if (m_nSecond == 0)
+		{
+			if (m_bTurn)
+				m_bTurn = false;
+			else
+				m_bTurn = true;
+
+			m_nSecond = 10;
+			UpdateData(FALSE);
+			Invalidate();
+		}
+	}
 
 	CDialogEx::OnTimer(nIDEvent);
 }
@@ -234,8 +198,9 @@ void CCoupleDlg::OnLButtonDown(UINT nFlags, CPoint point)
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 
 	if (m_front_back) return; //m_front_back 이 1이면 마우스 클릭을 못함
+	if (!m_bTimerRun) return;
 
-	if ( point.x > 300 && point.x < 300 + (m_length * 6) && point.x > 50 && point.y < 50 + (m_height * 6))
+	if (point.x > 300 && point.x < 300 + (m_length * 6) && point.x > 50 && point.y < 50 + (m_height * 6))
 	{
 		int x = (point.x - 300) / m_length;
 		int y = (point.y - 50) / m_height;
@@ -272,6 +237,9 @@ void CCoupleDlg::OnLButtonDown(UINT nFlags, CPoint point)
 						m_bTurn = true;
 						UpdateData(FALSE);
 					}
+
+					m_nSecond = 10;
+					UpdateData(FALSE);
 				}
 				else
 				{
@@ -285,6 +253,8 @@ void CCoupleDlg::OnLButtonDown(UINT nFlags, CPoint point)
 						m_bTurn = true;
 						UpdateData(FALSE);
 					}
+					m_nSecond = 10;
+					UpdateData(FALSE);
 				}
 
 				m_card_choice = -1; //다시 첫 번째 카드를 선택하는 상황
@@ -389,4 +359,20 @@ HBRUSH CCoupleDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 
 	return hbr;
+}
+
+
+void CCoupleDlg::OnClickedButtonTimer()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	if (!m_bTimerRun)
+	{
+		m_bTimerRun = true;
+		m_strTimer.Format(_T("%02d"), m_nSecond);
+		UpdateData(FALSE);
+
+		SetTimer(2, 1000, NULL); //1초마다 timer 호출
+	}
+	else return;
+
 }
