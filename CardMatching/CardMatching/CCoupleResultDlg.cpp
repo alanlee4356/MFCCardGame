@@ -79,6 +79,7 @@ void CCoupleResultDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_STATIC_SCORE, m_score);
 	DDX_Control(pDX, IDC_STATIC_FINALSCORE2, m_finalScore2);
 	DDX_Control(pDX, IDC_STATIC_FINALSCORE, m_finalScore);
+	DDX_Control(pDX, IDC_STATIC_WINNER, m_winner);
 }
 
 
@@ -111,24 +112,24 @@ BOOL CCoupleResultDlg::OnInitDialog()
 	str_Score2.Format(_T("%d"), m_nScore2);
 	str_Time2.Format(_T("%d"), m_nTime2);
 	str_FinalScore2.Format(_T("%d"), m_nFinalScore2);
-	/*
+	
 	if (m_nFinalScore > m_nFinalScore2) {
-		str_Winner.Format(_T("1P Win!"))
+		str_Winner.Format(_T("1P Win!"));
 	}
 	else if (m_nFinalScore == m_nFinalScore2) {
-		str_Winner.Format(_T("Draw"))
+		str_Winner.Format(_T("Draw"));
 	}
 	else {
-		str_Winner.Format(_T("2P Win!"))
+		str_Winner.Format(_T("2P Win!"));
 	}
-	*/
+	
 	m_score.SetWindowTextW(str_Score);
 	m_finalScore.SetWindowTextW(str_FinalScore);
 	m_time.SetWindowTextW(str_Time);
 	m_score2.SetWindowTextW(str_Score2);
 	m_finalScore2.SetWindowTextW(str_FinalScore2);
 	m_time2.SetWindowTextW(str_Time2);
-	//m_winner.SetWindowTextW(_T("0"));
+	m_winner.SetWindowTextW(str_Winner);
 	
 
 	return TRUE;  // return TRUE unless you set the focus to a control

@@ -42,4 +42,5 @@ public:
 	CStatic m_finalScore2;
 	CStatic m_finalScore;
 	virtual BOOL OnInitDialog();
+	CStatic m_winner;
 };
