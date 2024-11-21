@@ -12,6 +12,7 @@
 #define IDD_ALONE_HARD_DIALOG           136
 #define IDD_DIALOG1                     137
 #define IDD_RESULT_DIALOG               137
+#define IDD_COUPLE_RESULT_DIALOG        141
 #define IDC_BUTTON_HINT                 1000
 #define IDC_BUTTON_HINT2                1001
 #define IDC_BUTTON_ALONE                1002
@@ -22,6 +23,7 @@
 #define IDC_BUTTON_TIMER                1004
 #define IDC_BUTTON_EIGHT                1005
 
+
 #define IDC_EDIT_POINT1                 1005
 #define IDC_EDIT_POINT2                 1006
 #define IDC_STATIC_PLAYER1              1007
@@ -31,20 +33,29 @@
 #define IDC_EDIT_TIMER                  1010
 #define IDC_BUTTON_TIMER2               1010
 
-#define IDC_STATIC_SCORE                1012
-#define IDC_STATIC_SCORE2               1013
+
+
+#define IDC_STATIC_SCORE                1017
+
+#define IDC_STATIC_FINALSCORE           1016
 
 #define IDC_STATIC_TIME                 1011
+#define IDC_STATIC_SCORE3               1012
+#define IDC_STATIC_TIME2                1013
+#define IDC_STATIC_FINALSCORE2          1014
+#define IDC_STATIC_WINNER               1015
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        141
+#define _APS_NEXT_RESOURCE_VALUE        143
 #define _APS_NEXT_COMMAND_VALUE         32771
 
-#define _APS_NEXT_CONTROL_VALUE         1014
 
+
+
+#define _APS_NEXT_CONTROL_VALUE         1018
 
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
