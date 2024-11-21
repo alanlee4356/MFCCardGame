@@ -3,3 +3,10 @@
 #include "pch.h"
 
 // 미리 컴파일된 헤더를 사용하는 경우 컴파일이 성공하려면 이 소스 파일이 필요합니다.
+
+int m_nScore = 0;
+int m_nScore2 = 0;
+int m_nTime = 0;
+int m_nTime2 = 0;
+int m_nFinalScore = 0;
+int m_nFinalScore2 = 0;
