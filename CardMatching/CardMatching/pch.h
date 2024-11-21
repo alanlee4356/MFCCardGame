@@ -10,4 +10,14 @@
 // 여기에 미리 컴파일하려는 헤더 추가
 #include "framework.h"
 
+extern int m_nScore;
+extern int m_nScore2;
+extern int m_nTime;
+extern int m_nTime2;
+extern int m_nFinalScore;
+extern int m_nFinalScore2;
+
+
+
+
 #endif //PCH_H

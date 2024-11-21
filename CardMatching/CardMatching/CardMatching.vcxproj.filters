@@ -51,7 +51,11 @@
     <ClInclude Include="CResultDlg.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+
     <ClInclude Include="CTripleDlg.h">
+
+    <ClInclude Include="CCoupleResultDlg.h">
+
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -83,7 +87,11 @@
     <ClCompile Include="CResultDlg.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+
     <ClCompile Include="CTripleDlg.cpp">
+
+    <ClCompile Include="CCoupleResultDlg.cpp">
+
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

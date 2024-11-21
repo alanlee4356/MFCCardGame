@@ -189,6 +189,7 @@
     <ClInclude Include="CardMatchingDlg.h" />
     <ClInclude Include="CCoupleDlg.h" />
     <ClInclude Include="CCoupleHardDlg.h" />
+    <ClInclude Include="CCoupleResultDlg.h" />
     <ClInclude Include="CResultDlg.h" />
     <ClInclude Include="CStartDlg.h" />
     <ClInclude Include="CTripleDlg.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="CardMatchingDlg.cpp" />
     <ClCompile Include="CCoupleDlg.cpp" />
     <ClCompile Include="CCoupleHardDlg.cpp" />
+    <ClCompile Include="CCoupleResultDlg.cpp" />
     <ClCompile Include="CResultDlg.cpp" />
     <ClCompile Include="CStartDlg.cpp" />
     <ClCompile Include="CTripleDlg.cpp" />
