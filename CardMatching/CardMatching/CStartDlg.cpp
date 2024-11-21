@@ -11,6 +11,7 @@
 #include "CCoupleDlg.h"
 #include "CAloneHardDlg.h"
 #include "CCoupleHardDlg.h"
+#include "CTripleDlg.h"
 
 
 // CStartDlg 대화 상자
@@ -41,6 +42,7 @@ BEGIN_MESSAGE_MAP(CStartDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_COUPLE, &CStartDlg::OnClickedButtonCouple)
 	ON_BN_CLICKED(IDC_BUTTON_EIGHT, &CStartDlg::OnClickedButtonEight)
 	ON_BN_CLICKED(IDC_BUTTON_SIX, &CStartDlg::OnClickedButtonSix)
+	ON_BN_CLICKED(IDC_TRIPLE_DIALOG, &CStartDlg::OnBnClickedTripleDialog)
 END_MESSAGE_MAP()
 
 
@@ -97,3 +99,13 @@ void CStartDlg::OnClickedButtonCouple()
 
 
 
+
+
+void CStartDlg::OnBnClickedTripleDialog()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	
+	CTripleDlg triple_dlg;
+	triple_dlg.DoModal();
+	
+}
