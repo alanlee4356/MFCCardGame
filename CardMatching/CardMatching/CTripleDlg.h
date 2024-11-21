@@ -44,5 +44,7 @@ public:
 	afx_msg HCURSOR OnQueryDragIcon();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg bool IsGameComplete();
 	
+	afx_msg void OnBnClickedButtonHint();
 };

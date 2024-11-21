@@ -6,6 +6,7 @@
 #include "afxdialogex.h"
 #include "CTripleDlg.h"
 #include "framework.h"
+#include "CResultDlg.h"
 
 
 // CTripleDlg 대화 상자
@@ -54,13 +55,14 @@ BEGIN_MESSAGE_MAP(CTripleDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_WM_TIMER()
 	ON_WM_LBUTTONDOWN()
+	ON_BN_CLICKED(IDC_BUTTON_HINT, &CTripleDlg::OnBnClickedButtonHint)
 END_MESSAGE_MAP()
 
 
 // CTripleDlg 메시지 처리기
 
 
-void CTripleDlg::OnBnClickedButton1()
+void CTripleDlg::OnBnClickedButton1() // 힌트 관련 버튼 IDC_BUTTON_HINT
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	if (m_front_back)
@@ -125,6 +127,10 @@ BOOL CTripleDlg::OnInitDialog()
 	}
 
 	SetTimer(1, 3000, NULL);
+	SetTimer(2, 1000, NULL); // 1초마다 업데이트 타이머 (IDC_STATIC_SECOND 갱신)
+
+	m_nTime = 300; // 5분(300초)
+	SetDlgItemInt(IDC_STATIC_TIME, m_nTime);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -174,8 +180,8 @@ void CTripleDlg::OnPaint()
 			m_card_list[index].Draw(dc, (i % 6) * 60, (i / 6) * 80, 60, 80);
 		}
 
-		str_score.Format(L"%d", score);
-		SetDlgItemText(IDC_BUTTON2, str_score);
+		str_score.Format(L"%d", m_nScore);
+		SetDlgItemText(IDC_STATIC_SCORE, str_score);
 	}
 }
 
@@ -196,8 +202,34 @@ void CTripleDlg::OnTimer(UINT_PTR nIDEvent)
 		m_front_back = 0;
 		Invalidate();
 	}
+	else if (nIDEvent == 2)
+	{
+		if (m_nTime > 0)
+		{
+			// 남은 시간 갱신
+			m_nTime--;
+			SetDlgItemInt(IDC_STATIC_TIME, m_nTime);
 
-	CDialogEx::OnTimer(nIDEvent);
+			// 시간이 다 됐을 경우 처리
+			if (m_nTime == 0)
+			{
+				KillTimer(2); // 타이머 종료
+				//AfxMessageBox(L"시간 초과로 게임이 종료됩니다.");
+
+				// 결과 다이얼로그 호출
+				CResultDlg resultDlg;
+				resultDlg.DoModal();
+
+				// 다이얼로그 종료
+				//EndDialog(IDOK);
+			}
+		}
+	}
+	else
+	{
+		CDialogEx::OnTimer(nIDEvent);
+	}
+
 }
 
 
@@ -262,7 +294,7 @@ void CTripleDlg::OnLButtonDown(UINT nFlags, CPoint point)
 					m_game_table[num] = -1;
 					m_card_choice01 = -1;
 					m_card_choice02 = -1;
-					score++;
+					m_nScore += 3;
 					m_front_back = 1;
 					SetTimer(1, 0, NULL);
 				}
@@ -272,11 +304,52 @@ void CTripleDlg::OnLButtonDown(UINT nFlags, CPoint point)
 				}
 			}
 			m_front_back = 1;
-			SetTimer(1, 100, NULL);
+			SetTimer(1, 1000, NULL);
 
+		}
+
+		if (IsGameComplete() || m_nTime == 0) {
+			KillTimer(2);
+
+			CResultDlg resultDlg;
+			resultDlg.DoModal();
 		}
 
 	}
 
 	CDialogEx::OnLButtonDown(nFlags, point);
+}
+
+
+bool CTripleDlg::IsGameComplete() {
+	for (int i = 0; i < 36; i++) {
+		if (m_game_table[i] != -1) {
+			return false; // There is still an unmatched card
+		}
+	}
+	return true; // All cards are matched
+}
+
+
+void CTripleDlg::OnBnClickedButtonHint()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	if (m_card_choice01 == -1 && m_card_choice02 == -1) {
+		if (m_front_back) return; //카드가 앞면이면 누르지 못함
+
+		CString str;
+		GetDlgItemText(IDC_BUTTON_HINT, str);
+
+		int num = _wtoi(str);
+
+		if (num > 0) {
+			str.Format(L"%d", num - 1);
+			SetDlgItemText(IDC_BUTTON_HINT, str);
+
+			m_front_back = 1;
+			Invalidate();
+			SetTimer(1, 800, NULL);
+		}
+	}
+
 }
