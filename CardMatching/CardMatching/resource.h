@@ -21,6 +21,7 @@
 #define IDC_BUTTON_TEST                 1004
 #define IDC_BUTTON_TIMER                1004
 #define IDC_BUTTON_EIGHT                1005
+
 #define IDC_EDIT_POINT1                 1005
 #define IDC_EDIT_POINT2                 1006
 #define IDC_STATIC_PLAYER1              1007
@@ -29,6 +30,10 @@
 #define IDC_EDIT1                       1010
 #define IDC_EDIT_TIMER                  1010
 #define IDC_BUTTON_TIMER2               1010
+
+#define IDC_STATIC_SCORE                1012
+#define IDC_STATIC_SCORE2               1013
+
 #define IDC_STATIC_TIME                 1011
 
 // Next default values for new objects
@@ -37,7 +42,10 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        141
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1012
+
+#define _APS_NEXT_CONTROL_VALUE         1014
+
+
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
