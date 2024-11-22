@@ -28,6 +28,8 @@ public:
 	bool m_bPlayCouple;
 	bool m_bEasy;
 	bool m_bHard;
+	bool m_bTriple;
 	afx_msg void OnClickedButtonEight();
 	afx_msg void OnClickedButtonSix();
+	afx_msg void OnBnClickedTripleDialog();
 };

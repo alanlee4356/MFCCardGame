@@ -13,6 +13,7 @@
 #define IDD_DIALOG1                     137
 #define IDD_RESULT_DIALOG               137
 #define IDD_COUPLE_RESULT_DIALOG        141
+#define IDD_TRIPLE_DIALOG               142
 #define IDC_BUTTON_HINT                 1000
 #define IDC_BUTTON_ALONE                1002
 #define IDC_BUTTON_COUPLE               1003
@@ -20,6 +21,10 @@
 #define IDC_BUTTON1                     1004
 #define IDC_BUTTON_TEST                 1004
 #define IDC_BUTTON_EIGHT                1005
+#define IDC_BUTTON_EIGHT2               1006
+#define IDC_BUTTON_TRIPLE               1006
+#define IDC_TRIPLE_DIALOG               1006
+#define IDC_BUTTON2                     1007
 #define IDC_STATIC_SCORE                1009
 #define IDC_STATIC_SCORE2               1010
 #define IDC_STATIC_FINALSCORE           1010
