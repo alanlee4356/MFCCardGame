@@ -107,7 +107,7 @@ BOOL CCoupleDlg::OnInitDialog()
 
 	for (int i = 0; i < 19; i++)
 	{
-		str.Format(L"C:\\Temp2\\%03d.bmp", i);
+		str.Format(L"Image\\%03d.bmp", i);
 		m_card_list[i].Load(str);
 	}
 
@@ -396,8 +396,8 @@ bool CCoupleDlg::IsGameComplete()
 
 	if (count == 18)
 	{
-		m_nScore = m_nPoint1;
-		m_nScore2 = m_nPoint2;
+		m_nScore = (m_nPoint1)*2;
+		m_nScore2 = (m_nPoint2)*2;
 		return true;
 	}
 
