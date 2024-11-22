@@ -13,7 +13,7 @@ public:
 
 	virtual ~CCoupleDlg();
 
-// 대화 상자 데이터입니다.
+	// 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_COUPLE_DIALOG };
 #endif
@@ -26,7 +26,7 @@ protected:
 
 	virtual BOOL OnInitDialog();
 	afx_msg void OnPaint();
-	
+
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnDestroy();
@@ -37,7 +37,6 @@ public:
 	bool m_bTurn = true; //player1 start
 	const char m_length = 60; //카드 크기
 	const char m_height = 80;
-	CString m_strTimer;
 	bool m_bTimerRun = false;
 	int m_nSecond;
 
@@ -54,4 +53,5 @@ public:
 	afx_msg void OnClickedButtonTimer();
 	afx_msg HCURSOR OnQueryDragIcon();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	bool IsGameComplete();
 };

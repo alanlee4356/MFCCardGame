@@ -7,6 +7,7 @@
 #include "CCoupleDlg.h"
 
 #include "CStartDlg.h"
+#include "CCoupleResultDlg.h"
 
 
 // CCoupleDlg 대화 상자
@@ -17,7 +18,6 @@ CCoupleDlg::CCoupleDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_COUPLE_DIALOG, pParent)
 	, m_nPoint1(0)
 	, m_nPoint2(0)
-	, m_strTimer(_T("10"))
 	, m_nSecond(10)
 {
 	m_hIcon = AfxGetApp()->LoadIconW(IDR_MAINFRAME);
@@ -75,7 +75,7 @@ void CCoupleDlg::OnDestroy()
 	CDialogEx::OnDestroy();
 
 	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
-	//m_cardDlg->DestroyWindow();
+
 }
 
 
@@ -253,6 +253,7 @@ void CCoupleDlg::OnLButtonDown(UINT nFlags, CPoint point)
 						m_bTurn = true;
 						UpdateData(FALSE);
 					}
+
 					m_nSecond = 10;
 					UpdateData(FALSE);
 				}
@@ -262,11 +263,17 @@ void CCoupleDlg::OnLButtonDown(UINT nFlags, CPoint point)
 				m_front_back = 1; //WM_TIMER 메세지가 호출되기 전까지 아무것도 못 누르게
 
 				SetTimer(1, 1000, NULL);
+
+				if (IsGameComplete())
+				{
+					KillTimer(2);
+					CCoupleResultDlg coupleresult_dlg;
+					coupleresult_dlg.DoModal();
+				}
 			}
 		}
 
 	}
-
 
 	CDialogEx::OnLButtonDown(nFlags, point);
 }
@@ -324,8 +331,6 @@ HCURSOR CCoupleDlg::OnQueryDragIcon()
 }
 
 
-
-
 HBRUSH CCoupleDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
 	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
@@ -368,11 +373,33 @@ void CCoupleDlg::OnClickedButtonTimer()
 	if (!m_bTimerRun)
 	{
 		m_bTimerRun = true;
-		m_strTimer.Format(_T("%02d"), m_nSecond);
 		UpdateData(FALSE);
 
 		SetTimer(2, 1000, NULL); //1초마다 timer 호출
 	}
 	else return;
 
+}
+
+
+bool CCoupleDlg::IsGameComplete()
+{
+	// TODO: 여기에 구현 코드 추가.
+	int count = 0;
+	for (int i = 0; i < 18; i++)
+	{
+		if (m_game_table[i] == -1)
+		{
+			count++;
+		}
+	}
+
+	if (count == 18)
+	{
+		m_nScore = m_nPoint1;
+		m_nScore2 = m_nPoint2;
+		return true;
+	}
+
+	return false;
 }
