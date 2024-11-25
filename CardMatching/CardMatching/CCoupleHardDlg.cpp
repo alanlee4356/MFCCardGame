@@ -103,6 +103,8 @@ BOOL CCoupleHardDlg::OnInitDialog()
 	m_tFont3.CreateFont(20, 10, 0, 0, 1000, 0, 0, 0, 0, OUT_DEFAULT_PRECIS, 0, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, _T("굴림"));
 	GetDlgItem(IDC_STATIC_TIME)->SetFont(&m_tFont3);
 
+	m_nTime = 3;
+	m_nTime2 = 3;
 
 
 	CString str;
@@ -294,11 +296,12 @@ void CCoupleHardDlg::OnClickedButtonHint1()
 
 	if (num > 0) {
 		str.Format(L"%d", num - 1);
+		m_nTime = num - 1;
 		SetDlgItemText(IDC_BUTTON_HINT1, str);
 
 		m_front_back = 1;
 		Invalidate();
-		SetTimer(1, 1800, NULL);
+		SetTimer(1, 800, NULL);
 	}
 }
 
@@ -316,11 +319,12 @@ void CCoupleHardDlg::OnClickedButtonHint2()
 
 	if (num > 0) {
 		str.Format(L"%d", num - 1);
+		m_nTime2 = num - 1;
 		SetDlgItemText(IDC_BUTTON_HINT2, str);
 
 		m_front_back = 1;
 		Invalidate();
-		SetTimer(1, 1800, NULL);
+		SetTimer(1, 800, NULL);
 	}
 }
 
