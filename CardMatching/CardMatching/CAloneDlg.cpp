@@ -34,6 +34,8 @@ CAloneDlg::CAloneDlg(CWnd* pParent /*=nullptr*/)
 		m_game_table[first_choice] = m_game_table[second_choice];
 		m_game_table[second_choice] = temp;
 	}
+
+	m_nScore = 0;
 }
 
 CAloneDlg::~CAloneDlg()

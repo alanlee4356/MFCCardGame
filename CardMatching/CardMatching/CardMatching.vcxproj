@@ -192,6 +192,7 @@
     <ClInclude Include="CCoupleResultDlg.h" />
     <ClInclude Include="CResultDlg.h" />
     <ClInclude Include="CStartDlg.h" />
+    <ClInclude Include="CTripleDlg.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
@@ -207,6 +208,7 @@
     <ClCompile Include="CCoupleResultDlg.cpp" />
     <ClCompile Include="CResultDlg.cpp" />
     <ClCompile Include="CStartDlg.cpp" />
+    <ClCompile Include="CTripleDlg.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
