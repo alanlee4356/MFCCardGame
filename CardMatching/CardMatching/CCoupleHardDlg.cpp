@@ -50,9 +50,9 @@ CCoupleHardDlg::~CCoupleHardDlg()
 void CCoupleHardDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
-	DDX_Text(pDX, IDC_EDIT_POINT1, m_nPoint1);
-	DDX_Text(pDX, IDC_EDIT_POINT2, m_nPoint2);
-	DDX_Text(pDX, IDC_STATIC_TIME, m_nSecond);
+	DDX_Text(pDX, IDC_EDIT_HARD_POINT1, m_nPoint1);
+	DDX_Text(pDX, IDC_EDIT_HARD_POINT2, m_nPoint2);
+	DDX_Text(pDX, IDC_STATIC_HARD_TIME, m_nSecond);
 }
 
 
@@ -61,11 +61,11 @@ BEGIN_MESSAGE_MAP(CCoupleHardDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_TIMER()
 	ON_WM_LBUTTONDOWN()
-	ON_BN_CLICKED(IDC_BUTTON_HINT1, &CCoupleHardDlg::OnClickedButtonHint1)
-	ON_BN_CLICKED(IDC_BUTTON_HINT2, &CCoupleHardDlg::OnClickedButtonHint2)
+	ON_BN_CLICKED(IDC_BUTTON_HARD_HINT1, &CCoupleHardDlg::OnClickedButtonHint1)
+	ON_BN_CLICKED(IDC_BUTTON_HARD_HINT2, &CCoupleHardDlg::OnClickedButtonHint2)
 	ON_WM_QUERYDRAGICON()
 	ON_WM_CTLCOLOR()
-	ON_BN_CLICKED(IDC_BUTTON_TIMER, &CCoupleHardDlg::OnClickedButtonTimer)
+	ON_BN_CLICKED(IDC_BUTTON_HARD_TIMER, &CCoupleHardDlg::OnClickedButtonTimer)
 END_MESSAGE_MAP()
 
 
@@ -93,15 +93,15 @@ BOOL CCoupleHardDlg::OnInitDialog()
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
 	// 플레이어 폰트
 	m_tFont1.CreateFont(30, 10, 0, 0, 1000, 1, 0, 0, 0, OUT_DEFAULT_PRECIS, 0, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, _T("굴림"));
-	GetDlgItem(IDC_STATIC_PLAYER1)->SetFont(&m_tFont1);
-	GetDlgItem(IDC_STATIC_PLAYER2)->SetFont(&m_tFont1);
+	GetDlgItem(IDC_STATIC_HARD_PLAYER1)->SetFont(&m_tFont1);
+	GetDlgItem(IDC_STATIC_HARD_PLAYER2)->SetFont(&m_tFont1);
 
 	m_tFont2.CreateFont(20, 10, 0, 0, 1000, 1, 0, 0, 0, OUT_DEFAULT_PRECIS, 0, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, _T("굴림"));
-	GetDlgItem(IDC_EDIT_POINT1)->SetFont(&m_tFont2);
-	GetDlgItem(IDC_EDIT_POINT2)->SetFont(&m_tFont2);
+	GetDlgItem(IDC_EDIT_HARD_POINT1)->SetFont(&m_tFont2);
+	GetDlgItem(IDC_EDIT_HARD_POINT2)->SetFont(&m_tFont2);
 
 	m_tFont3.CreateFont(20, 10, 0, 0, 1000, 0, 0, 0, 0, OUT_DEFAULT_PRECIS, 0, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, _T("굴림"));
-	GetDlgItem(IDC_STATIC_TIME)->SetFont(&m_tFont3);
+	GetDlgItem(IDC_STATIC_HARD_TIME)->SetFont(&m_tFont3);
 
 	m_nTime = 3;
 	m_nTime2 = 3;
@@ -231,13 +231,13 @@ void CCoupleHardDlg::OnLButtonDown(UINT nFlags, CPoint point)
 
 					if (m_bTurn)
 					{
-						m_nPoint1++;
+						m_nPoint1 += 2;
 						m_bTurn = false;
 						UpdateData(FALSE);
 					}
 					else
 					{
-						m_nPoint2++;
+						m_nPoint2 += 2;
 						m_bTurn = true;
 						UpdateData(FALSE);
 					}
@@ -285,46 +285,50 @@ void CCoupleHardDlg::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CCoupleHardDlg::OnClickedButtonHint1()
 {
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	if (m_front_back) return; //카드가 앞면이면 누르지 못함
-	if (!m_bTurn) return;
+	if (m_card_choice == -1) {
+		// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+		if (m_front_back) return; //카드가 앞면이면 누르지 못함
+		if (!m_bTurn) return;
 
-	CString str;
-	GetDlgItemText(IDC_BUTTON_HINT1, str);
+		CString str;
+		GetDlgItemText(IDC_BUTTON_HARD_HINT1, str);
 
-	int num = _wtoi(str);
+		int num = _wtoi(str);
 
-	if (num > 0) {
-		str.Format(L"%d", num - 1);
-		m_nTime = num - 1;
-		SetDlgItemText(IDC_BUTTON_HINT1, str);
+		if (num > 0) {
+			str.Format(L"%d", num - 1);
+			m_nTime = num - 1;
+			SetDlgItemText(IDC_BUTTON_HARD_HINT1, str);
 
-		m_front_back = 1;
-		Invalidate();
-		SetTimer(1, 800, NULL);
+			m_front_back = 1;
+			Invalidate();
+			SetTimer(1, 800, NULL);
+		}
 	}
 }
 
 
 void CCoupleHardDlg::OnClickedButtonHint2()
 {
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	if (m_front_back) return; //카드가 앞면이면 누르지 못함
-	if (m_bTurn) return;
+	if (m_card_choice == -1) {
+		// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+		if (m_front_back) return; //카드가 앞면이면 누르지 못함
+		if (m_bTurn) return;
 
-	CString str;
-	GetDlgItemText(IDC_BUTTON_HINT2, str);
+		CString str;
+		GetDlgItemText(IDC_BUTTON_HARD_HINT2, str);
 
-	int num = _wtoi(str);
+		int num = _wtoi(str);
 
-	if (num > 0) {
-		str.Format(L"%d", num - 1);
-		m_nTime2 = num - 1;
-		SetDlgItemText(IDC_BUTTON_HINT2, str);
+		if (num > 0) {
+			str.Format(L"%d", num - 1);
+			m_nTime2 = num - 1;
+			SetDlgItemText(IDC_BUTTON_HARD_HINT2, str);
 
-		m_front_back = 1;
-		Invalidate();
-		SetTimer(1, 800, NULL);
+			m_front_back = 1;
+			Invalidate();
+			SetTimer(1, 800, NULL);
+		}
 	}
 }
 
@@ -347,22 +351,22 @@ HBRUSH CCoupleHardDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 	if (m_bTurn)
 	{
-		if (pWnd->GetDlgCtrlID() == IDC_STATIC_PLAYER1)
+		if (pWnd->GetDlgCtrlID() == IDC_STATIC_HARD_PLAYER1)
 		{
 			pDC->SetTextColor(RGB(255, 0, 0));
 		}
-		if (pWnd->GetDlgCtrlID() == IDC_STATIC_PLAYER2)
+		if (pWnd->GetDlgCtrlID() == IDC_STATIC_HARD_PLAYER2)
 		{
 			pDC->SetTextColor(RGB(0, 0, 0));
 		}
 	}
 	else
 	{
-		if (pWnd->GetDlgCtrlID() == IDC_STATIC_PLAYER2)
+		if (pWnd->GetDlgCtrlID() == IDC_STATIC_HARD_PLAYER2)
 		{
 			pDC->SetTextColor(RGB(255, 0, 0));
 		}
-		if (pWnd->GetDlgCtrlID() == IDC_STATIC_PLAYER1)
+		if (pWnd->GetDlgCtrlID() == IDC_STATIC_HARD_PLAYER1)
 		{
 			pDC->SetTextColor(RGB(0, 0, 0));
 		}
@@ -396,8 +400,8 @@ bool CCoupleHardDlg::IsGameComplete()
 			return false; // There is still an unmatched card
 		}
 	}
-	m_nScore = (m_nPoint1)*2;
-	m_nScore2 = (m_nPoint2)*2;
+	m_nScore = (m_nPoint1);
+	m_nScore2 = (m_nPoint2);
 
 	return true; // All cards are matched
 

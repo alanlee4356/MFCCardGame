@@ -229,13 +229,13 @@ void CCoupleDlg::OnLButtonDown(UINT nFlags, CPoint point)
 
 					if (m_bTurn)
 					{
-						m_nPoint1++;
+						m_nPoint1 += 2;
 						m_bTurn = false;
 						UpdateData(FALSE);
 					}
 					else
 					{
-						m_nPoint2++;
+						m_nPoint2 += 2;
 						m_bTurn = true;
 						UpdateData(FALSE);
 					}
@@ -390,7 +390,7 @@ bool CCoupleDlg::IsGameComplete()
 {
 	// TODO: 여기에 구현 코드 추가.
 	int count = 0;
-	for (int i = 0; i < 18; i++)
+	for (int i = 0; i < 36; i++)
 	{
 		if (m_game_table[i] == -1)
 		{
@@ -398,10 +398,10 @@ bool CCoupleDlg::IsGameComplete()
 		}
 	}
 
-	if (count == 18)
+	if (count == 36)
 	{
-		m_nScore = (m_nPoint1)*2;
-		m_nScore2 = (m_nPoint2)*2;
+		m_nScore = (m_nPoint1);
+		m_nScore2 = (m_nPoint2);
 		return true;
 	}
 

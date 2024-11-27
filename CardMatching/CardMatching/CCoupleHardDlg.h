@@ -53,4 +53,5 @@ public:
 	afx_msg HCURSOR OnQueryDragIcon();
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	bool IsGameComplete();
+	afx_msg void OnStnClicked1007();
 };
