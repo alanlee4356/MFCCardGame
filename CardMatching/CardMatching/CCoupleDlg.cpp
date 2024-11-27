@@ -229,13 +229,13 @@ void CCoupleDlg::OnLButtonDown(UINT nFlags, CPoint point)
 
 					if (m_bTurn)
 					{
-						m_nPoint1++;
+						m_nPoint1 += 2;
 						m_bTurn = false;
 						UpdateData(FALSE);
 					}
 					else
 					{
-						m_nPoint2++;
+						m_nPoint2 += 2;
 						m_bTurn = true;
 						UpdateData(FALSE);
 					}
@@ -283,23 +283,25 @@ void CCoupleDlg::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CCoupleDlg::OnClickedButtonHint1()
 {
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	if (m_front_back) return; //카드가 앞면이면 누르지 못함
-	if (!m_bTurn) return;
+	if (m_card_choice == -1) {
+		// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+		if (m_front_back) return; //카드가 앞면이면 누르지 못함
+		if (!m_bTurn) return;
 
-	CString str;
-	GetDlgItemText(IDC_BUTTON_HINT1, str);
+		CString str;
+		GetDlgItemText(IDC_BUTTON_HINT1, str);
 
-	int num = _wtoi(str);
+		int num = _wtoi(str);
 
-	if (num > 0) {
-		str.Format(L"%d", num - 1);
-		m_nTime = num - 1;
-		SetDlgItemText(IDC_BUTTON_HINT1, str);
+		if (num > 0) {
+			str.Format(L"%d", num - 1);
+			m_nTime = num - 1;
+			SetDlgItemText(IDC_BUTTON_HINT1, str);
 
-		m_front_back = 1;
-		Invalidate();
-		SetTimer(1, 800, NULL);
+			m_front_back = 1;
+			Invalidate();
+			SetTimer(1, 800, NULL);
+		}
 	}
 }
 
@@ -307,22 +309,24 @@ void CCoupleDlg::OnClickedButtonHint1()
 void CCoupleDlg::OnClickedButtonHint2()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	if (m_front_back) return; //카드가 앞면이면 누르지 못함
-	if (m_bTurn) return;
+	if (m_card_choice == -1) {
+		if (m_front_back) return; //카드가 앞면이면 누르지 못함
+		if (m_bTurn) return;
 
-	CString str;
-	GetDlgItemText(IDC_BUTTON_HINT2, str);
+		CString str;
+		GetDlgItemText(IDC_BUTTON_HINT2, str);
 
-	int num = _wtoi(str);
+		int num = _wtoi(str);
 
-	if (num > 0) {
-		str.Format(L"%d", num - 1);
-		m_nTime2 = num - 1;
-		SetDlgItemText(IDC_BUTTON_HINT2, str);
+		if (num > 0) {
+			str.Format(L"%d", num - 1);
+			m_nTime2 = num - 1;
+			SetDlgItemText(IDC_BUTTON_HINT2, str);
 
-		m_front_back = 1;
-		Invalidate();
-		SetTimer(1, 800, NULL);
+			m_front_back = 1;
+			Invalidate();
+			SetTimer(1, 800, NULL);
+		}
 	}
 }
 
@@ -390,7 +394,7 @@ bool CCoupleDlg::IsGameComplete()
 {
 	// TODO: 여기에 구현 코드 추가.
 	int count = 0;
-	for (int i = 0; i < 18; i++)
+	for (int i = 0; i < 36; i++)
 	{
 		if (m_game_table[i] == -1)
 		{
@@ -398,10 +402,10 @@ bool CCoupleDlg::IsGameComplete()
 		}
 	}
 
-	if (count == 18)
+	if (count == 36)
 	{
-		m_nScore = (m_nPoint1)*2;
-		m_nScore2 = (m_nPoint2)*2;
+		m_nScore = m_nPoint1;
+		m_nScore2 = m_nPoint2;
 		return true;
 	}
 
