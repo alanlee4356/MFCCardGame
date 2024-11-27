@@ -14,6 +14,8 @@ IMPLEMENT_DYNAMIC(CAloneHardDlg, CDialogEx)
 
 CAloneHardDlg::CAloneHardDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_ALONE_HARD_DIALOG, pParent)
+	, m_nHardScore(_T(""))
+	, m_nHardTime(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 
@@ -46,8 +48,9 @@ void CAloneHardDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_BUTTON_HARD_HINT, m_Button_Hard_Hint);
-	DDX_Control(pDX, IDC_STATIC_HARD_SCORE, m_Static_Hard_Score);
-	DDX_Control(pDX, IDC_STATIC_HARD_TIME, m_Static_Hard_Time);
+
+	DDX_Text(pDX, IDC_STATIC_HARD_SCORE, m_nHardScore);
+	DDX_Text(pDX, IDC_STATIC_HARD_TIME, m_nHardTime);
 }
 
 

@@ -41,6 +41,6 @@ public:
 	afx_msg void OnClose();
 	afx_msg bool IsGameComplete();
 	CButton m_Button_Hard_Hint;
-	CStatic m_Static_Hard_Score;
-	CStatic m_Static_Hard_Time;
+	CString m_nHardScore;
+	CString m_nHardTime;
 };
