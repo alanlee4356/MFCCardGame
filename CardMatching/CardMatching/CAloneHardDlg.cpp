@@ -45,6 +45,9 @@ CAloneHardDlg::~CAloneHardDlg()
 void CAloneHardDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_BUTTON_HARD_HINT, m_Button_Hard_Hint);
+	DDX_Control(pDX, IDC_STATIC_HARD_SCORE, m_Static_Hard_Score);
+	DDX_Control(pDX, IDC_STATIC_HARD_TIME, m_Static_Hard_Time);
 }
 
 
@@ -53,7 +56,7 @@ BEGIN_MESSAGE_MAP(CAloneHardDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_WM_TIMER()
 	ON_WM_LBUTTONDOWN()
-	ON_BN_CLICKED(IDC_BUTTON_HINT, &CAloneHardDlg::OnBnClickedButtonHint)
+	ON_BN_CLICKED(IDC_BUTTON_HARD_HINT, &CAloneHardDlg::OnBnClickedButtonHint)
 
 	ON_WM_CLOSE()
 END_MESSAGE_MAP()
@@ -84,7 +87,7 @@ BOOL CAloneHardDlg::OnInitDialog()
 	SetTimer(1, 3000, NULL);
 	SetTimer(2, 1000, NULL); 
 	m_nTime = 300;// 5분 타이머 설정 (5분 = 300,000ms)
-	SetDlgItemInt(IDC_STATIC_TIME, m_nTime);
+	SetDlgItemInt(IDC_STATIC_HARD_TIME, m_nTime);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -155,7 +158,7 @@ void CAloneHardDlg::OnTimer(UINT_PTR nIDEvent)
 		{
 			// 남은 시간 갱신
 			m_nTime--;
-			SetDlgItemInt(IDC_STATIC_TIME, m_nTime);
+			SetDlgItemInt(IDC_STATIC_HARD_TIME, m_nTime);
 
 			// 시간이 다 됐을 경우 처리
 			if (m_nTime == 0)
@@ -206,7 +209,7 @@ void CAloneHardDlg::OnLButtonDown(UINT nFlags, CPoint point)
 					//첫 번째 테이블 값과 두 번째 테이블 값이 같으면
 				{
 					m_nScore+=2;
-					SetDlgItemInt(IDC_STATIC_SCORE, m_nScore);
+					SetDlgItemInt(IDC_STATIC_HARD_SCORE, m_nScore);
 					m_game_table[m_card_choice] = -1;
 					m_game_table[pos] = -1;
 
@@ -240,13 +243,13 @@ void CAloneHardDlg::OnBnClickedButtonHint()
 		if (m_front_back) return; //카드가 앞면이면 누르지 못함
 
 		CString str;
-		GetDlgItemText(IDC_BUTTON_HINT, str);
+		GetDlgItemText(IDC_BUTTON_HARD_HINT, str);
 
 		int num = _wtoi(str);
 
 		if (num > 0) {
 			str.Format(L"%d", num - 1);
-			SetDlgItemText(IDC_BUTTON_HINT, str);
+			SetDlgItemText(IDC_BUTTON_HARD_HINT, str);
 
 			m_front_back = 1;
 			Invalidate();
