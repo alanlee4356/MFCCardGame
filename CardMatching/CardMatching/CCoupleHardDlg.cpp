@@ -231,13 +231,13 @@ void CCoupleHardDlg::OnLButtonDown(UINT nFlags, CPoint point)
 
 					if (m_bTurn)
 					{
-						m_nPoint1 += 2;
+						m_nPoint1++;
 						m_bTurn = false;
 						UpdateData(FALSE);
 					}
 					else
 					{
-						m_nPoint2 += 2;
+						m_nPoint2++;
 						m_bTurn = true;
 						UpdateData(FALSE);
 					}
@@ -396,8 +396,8 @@ bool CCoupleHardDlg::IsGameComplete()
 			return false; // There is still an unmatched card
 		}
 	}
-	m_nScore = m_nPoint1;
-	m_nScore2 = m_nPoint2;
+	m_nScore = (m_nPoint1)*2;
+	m_nScore2 = (m_nPoint2)*2;
 
 	return true; // All cards are matched
 
