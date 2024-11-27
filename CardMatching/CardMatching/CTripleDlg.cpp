@@ -120,6 +120,8 @@ BOOL CTripleDlg::OnInitDialog()
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
 	CString str;
+	m_nScore = 0;
+	m_nTime = 0;
 
 	for (int i = 0; i < 13; i++) {
 		str.Format(L".\\Image\\%03d.bmp", i);
