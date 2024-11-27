@@ -14,20 +14,7 @@ IMPLEMENT_DYNAMIC(CResultDlg, CDialogEx)
 CResultDlg::CResultDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_RESULT_DIALOG, pParent)
 {	
-	/*
-	CString str_Score;
-	CString str_Time;
-	CString str_FinalScore;
 	
-	//전역변수에 있는 score, time 값을 바탕으로 값을 계산 후 표시
-	m_nFinalScore = m_nScore + m_nTime;
-	str_Score.Format(_T("%d"), m_nScore);
-	str_Time.Format(_T("%d"), m_nTime);
-	str_FinalScore.Format(_T("%d"), m_nFinalScore);
-	*/
-	//m_score.SetWindowTextW(str_Score);
-	//m_finalScore.SetWindowTextW(str_FinalScore);
-	//m_time.SetWindowTextW(str_Time);
 }
 
 CResultDlg::~CResultDlg()
