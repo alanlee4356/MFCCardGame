@@ -236,22 +236,23 @@ void CAloneHardDlg::OnLButtonDown(UINT nFlags, CPoint point)
 void CAloneHardDlg::OnBnClickedButtonHint()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	if (m_front_back) return; //카드가 앞면이면 누르지 못함
+	if (m_card_choice == -1) {
+		if (m_front_back) return; //카드가 앞면이면 누르지 못함
 
-	CString str;
-	GetDlgItemText(IDC_BUTTON_HINT, str);
+		CString str;
+		GetDlgItemText(IDC_BUTTON_HINT, str);
 
-	int num = _wtoi(str);
+		int num = _wtoi(str);
 
-	if (num > 0) {
-		str.Format(L"%d", num - 1);
-		SetDlgItemText(IDC_BUTTON_HINT, str);
+		if (num > 0) {
+			str.Format(L"%d", num - 1);
+			SetDlgItemText(IDC_BUTTON_HINT, str);
 
-		m_front_back = 1;
-		Invalidate();
-		SetTimer(1, 800, NULL);
+			m_front_back = 1;
+			Invalidate();
+			SetTimer(1, 800, NULL);
+		}
 	}
-
 }
 
 
