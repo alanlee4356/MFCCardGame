@@ -24,14 +24,16 @@ CCoupleResultDlg::~CCoupleResultDlg()
 void CCoupleResultDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
-	
-	DDX_Control(pDX, IDC_STATIC_TIME, m_time);
-	DDX_Control(pDX, IDC_STATIC_TIME2, m_time2);
-	DDX_Control(pDX, IDC_STATIC_SCORE3, m_score2);
-	DDX_Control(pDX, IDC_STATIC_SCORE, m_score);
-	DDX_Control(pDX, IDC_STATIC_FINALSCORE2, m_finalScore2);
-	DDX_Control(pDX, IDC_STATIC_FINALSCORE, m_finalScore);
+
+
 	DDX_Control(pDX, IDC_STATIC_WINNER, m_winner);
+	DDX_Control(pDX, IDC_STATIC_COUPLE_FINALSCORE, m_finalScore);
+	DDX_Control(pDX, IDC_STATIC_COUPLE_FINALSCORE, m_finalScore);
+	DDX_Control(pDX, IDC_STATIC_COUPLE_FINALSCORE2, m_finalScore2);
+	DDX_Control(pDX, IDC_STATIC_COUPLE_SCORE, m_score);
+	DDX_Control(pDX, IDC_STATIC_COUPLE_SCORE2, m_score2);
+	DDX_Control(pDX, IDC_STATIC_COUPLE_TIME, m_time);
+	DDX_Control(pDX, IDC_STATIC_COUPLE_TIME2, m_time2);
 }
 
 
